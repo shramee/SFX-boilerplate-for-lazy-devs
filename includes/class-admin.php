@@ -44,7 +44,7 @@ final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_
 		 * Custom controls
 		 * Load custom control classes
 		 */
-		require_once dirname( __FILE__ ) . '/includes/class-storefront-extension-boilerplate-images-control.php';
+		require_once 'class-images-control.php';
 
 		/**
 		 * Modify existing controls
