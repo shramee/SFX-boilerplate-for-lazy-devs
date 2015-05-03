@@ -57,14 +57,15 @@ $storefront_extension_boilerplate_customizer_fields = array(
 
 To get the value in public class use $this->get_theme_mod( $id, $default ). e.g.
 ```php
-$color = $this->get_theme_mod( 'search_box_color', $fff );
+$color = $this->get_theme_mod( 'search_box_color', '#ffffff' );
 $css = "";
 $css .= ".site-search .search-field \n";
-$css .= "\t background: {$color} \n";
+$css .= "{ \n";
+$css .= "\t background: {$color} ;\n";
 $css .= "} \n";
 wp_add_inline_style( 'seb-styles', $css );
 ```
-in Storefront_Extension_Boilerplate_Public::styles method will probably set background color for product search
+in Storefront_Extension_Boilerplate_Public::styles method will set background color for product search
 
 To put controls in existing sections prefix the existing sections name with *'existing_'* and it's good to go.
 
