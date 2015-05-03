@@ -125,7 +125,6 @@ final class Storefront_Extension_Boilerplate_Customizer_Fields extends Storefron
 				$wp_customize->add_setting(
 					$id,
 					array(
-						'type'   => 'option',
 						'default'   => $default,
 						'transport' => 'refresh',
 					)
