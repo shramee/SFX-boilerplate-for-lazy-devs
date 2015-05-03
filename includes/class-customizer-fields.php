@@ -54,6 +54,22 @@ final class Storefront_Extension_Boilerplate_Customizer_Fields extends Storefron
 	}
 
 	/**
+	 * Customizer Controls and settings
+	 * @param object WP_Customize_Manager $wp_customize Theme Customizer object.
+	 * @global array $storefront_extension_boilerplate_customizer_fields
+	 */
+	public function seb_customize_register( $wp_customize ) {
+		global $storefront_extension_boilerplate_customizer_fields;
+
+		foreach ( $storefront_extension_boilerplate_customizer_fields as $f ) {
+			$sections[ $f['section'] ][] = $f;
+		}
+
+		$this->customizer_fields( $wp_customize, $sections );
+
+	}
+
+	/**
 	 * Sets the fields for the customizer
 	 *
 	 * @since	1.0.0
@@ -65,7 +81,7 @@ final class Storefront_Extension_Boilerplate_Customizer_Fields extends Storefron
 		foreach ( $sections as $Sec => $fields ) {
 
 
-			if ( false === strstr( $Sec, 'default_' ) ) {
+			if ( false === strstr( $Sec, 'existing_' ) ) {
 				$sec = $this->get_sec_id( $Sec );
 
 				$wp_customize->add_section(

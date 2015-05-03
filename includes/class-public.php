@@ -38,6 +38,16 @@ final class Storefront_Extension_Boilerplate_Public extends Storefront_Extension
 
 	}
 
+	/**
+	 * Gets the theme mod for customizer fields
+	 *
+	 * @param string $id
+	 * @param string $default
+	 * @return string Setting value
+	 */
+	public function get_theme_mod( $id, $default = null ){
+		return get_theme_mod( $this->token . '-' . preg_replace( "/[^\w]+/",  '-', strtolower( $id ) ), $default );
+	}
 
 	/**
 	 * Enqueue CSS and custom styles.

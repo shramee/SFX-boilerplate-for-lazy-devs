@@ -37,26 +37,11 @@ final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_
 		//Customizer fields renderer
 		$this->customizer = new Storefront_Extension_Boilerplate_Customizer_Fields( $this->token, $this->plugin_path, $this->plugin_url );
 		//Customize register
-		add_action( 'customize_register', array( $this, 'seb_customize_register' ) );
+		add_action( 'customize_register', array( $this->customizer, 'seb_customize_register' ) );
 		//Customize preview init script
 		add_action( 'customize_preview_init', array( $this, 'seb_customize_preview_js' ) );
 		//Admin notices
 		add_action( 'admin_notices', array( $this, 'seb_customizer_notice' ) );
-	}
-
-	/**
-	 * Customizer Controls and settings
-	 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
-	 */
-	public function seb_customize_register( $wp_customize ) {
-		global $storefront_extension_boilerplate_customizer_fields;
-
-		foreach ( $storefront_extension_boilerplate_customizer_fields as $f ) {
-			$sections[ $f['section'] ][] = $f;
-		}
-
-		$this->customizer->customizer_fields( $wp_customize, $sections );
-
 	}
 
 	/**
