@@ -19,14 +19,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-/** Including variables and function */
-require_once( 'includes/vars-n-funcs.php' );
-/** Including customizer class */
-require_once( 'includes/class-customizer-fields.php' );
 /** Including abstract class */
 require_once( 'includes/class-abstract.php' );
+
+/** Including variables and function */
+require_once( 'includes/vars-n-funcs.php' );
+
+/** Including customizer class */
+require_once( 'includes/class-customizer-fields.php' );
+
 /** Including public class */
 require_once( 'includes/class-public.php' );
+
 /** Including admin class */
 require_once( 'includes/class-admin.php' );
 
