@@ -14,11 +14,15 @@
  *
  * @package Storefront_Extension_Boilerplate
  * @category Core
- * @author James Koster
+ * @author Shramee Srivastav <shramee.srivastav@gmail.com>
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+/** Including variables and function */
+require_once( 'includes/vars-n-funcs.php' );
+/** Including customizer class */
+require_once( 'includes/class-customizer-fields.php' );
 /** Including abstract class */
 require_once( 'includes/class-abstract.php' );
 /** Including public class */
@@ -59,6 +63,7 @@ Storefront_Extension_Boilerplate();
  * @version	1.0.0
  * @since 1.0.0
  * @package	Storefront_Extension_Boilerplate
+ * @author Shramee Srivastav <shramee.srivastav@gmail.com>
  */
 final class Storefront_Extension_Boilerplate {
 	/**

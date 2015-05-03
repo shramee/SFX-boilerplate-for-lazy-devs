@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: shramee
+ * User: Shramee Srivastav <shramee.srivastav@gmail.com>
  * Date: 27/4/15
  * Time: 5:36 PM
  */
@@ -45,21 +45,12 @@ final class Storefront_Extension_Boilerplate_Public extends Storefront_Extension
 	 * @return  void
 	 */
 	public function styles() {
-		wp_enqueue_style( 'seb-styles', plugins_url( '/assets/css/style.css', __FILE__ ) );
+		wp_enqueue_style( 'seb-styles', $this->plugin_url . '/assets/css/style.css' );
 
-		$heading_background_color 	= storefront_sanitize_hex_color( get_theme_mod( 'color_picker', apply_filters( 'default_heading_background_color', '#ff0000' ) ) );
+		//Add custom css here
+		$css = '';
 
-		$style = '
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			background-color: ' . $heading_background_color . ';
-		}';
-
-		wp_add_inline_style( 'seb-styles', $style );
+		wp_add_inline_style( 'seb-styles', $css );
 	}
 
 	/**
@@ -77,7 +68,7 @@ final class Storefront_Extension_Boilerplate_Public extends Storefront_Extension
 	 * Adjusts the default Storefront layout when the plugin is active
 	 */
 	public function layout_adjustments() {
-		$checkbox 	= get_theme_mod( 'checkbox', apply_filters( 'checkbox_default', false ) );
+		$checkbox 	= get_theme_mod( 'seb_checkbox', apply_filters( 'checkbox_default', false ) );
 
 		if ( true == $checkbox ) {
 			add_action( 'storefront_header', array( $this, 'primary_navigation_wrapper' ), 45 );

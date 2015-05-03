@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: shramee
+ * User: Shramee Srivastav <shramee.srivastav@gmail.com>
  * Date: 27/4/15
  * Time: 5:36 PM
  */
@@ -69,23 +69,5 @@ abstract class Storefront_Extension_Boilerplate_Abstract {
 	public function init(){
 		//For descendants
 	}
-
-
-	/**
-	 * Main Storefront_Extension_Boilerplate Instance
-	 *
-	 * Ensures only one instance of Storefront_Extension_Boilerplate is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @see Storefront_Extension_Boilerplate()
-	 * @return Main Storefront_Extension_Boilerplate instance
-	 */
-	public static function instance() {
-		$class = get_called_class();
-		if ( is_null( $class::$_instance ) )
-			$class::$_instance = new $class();
-		return self::$_instance;
-	} // End instance()
 
 } // End class

@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: shramee
+ * User: Shramee Srivastav <shramee.srivastav@gmail.com>
  * Date: 27/4/15
  * Time: 5:36 PM
  */
@@ -18,6 +18,14 @@
 final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_Boilerplate_Abstract {
 
 	/**
+	 * The customizer control render object.
+	 * @var     object
+	 * @access  public
+	 * @since   1.0.0
+	 */
+	public $customizer;
+
+	/**
 	 * Called by parent::__construct
 	 * Do initialization here
 	 * @access  public
@@ -26,6 +34,8 @@ final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_
 	 */
 	public function init(){
 
+		//Customizer fields renderer
+		$this->customizer = new Storefront_Extension_Boilerplate_Customizer_Fields( $this->token, $this->plugin_path, $this->plugin_url );
 		//Customize register
 		add_action( 'customize_register', array( $this, 'seb_customize_register' ) );
 		//Customize preview init script
@@ -39,111 +49,14 @@ final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_
 	 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 	 */
 	public function seb_customize_register( $wp_customize ) {
+		global $storefront_extension_boilerplate_customizer_fields;
 
-		/**
-		 * Custom controls
-		 * Load custom control classes
-		 */
-		require_once 'class-images-control.php';
-
-		/**
-		 * Modify existing controls
-		 */
-		// Note: If you want to modiy existing controls, do it this way. You can set defaults, change the transport, etc.
-		//$wp_customize->get_setting( 'storefront_header_background_color' )->transport = 'refresh';
-
-		/**
-	     * Add a new section
-	     */
-        $wp_customize->add_section( 'seb_section' , array(
-		    'title'      	=> __( 'Storefront Extension Boilerplate', 'storefront-extention-boilerplate' ),
-		    'description' 	=> __( 'Add a description, if you want to!', 'storefront-extention-boilerplate' ),
-		    'priority'   	=> 55,
-		) );
-
-		/**
-		 * Sample
-		 * Image selector radios
-		 * See class-control-images.php
-		 */
-		$wp_customize->add_setting( 'seb_image', array(
-			'default'    		=> 'option-1',
-			'sanitize_callback'	=> 'esc_attr'
-		) );
-
-		$wp_customize->add_control( new Storefront_Extension_Boilerplate_Images_Control( $wp_customize, 'seb_image', array(
-			'label'    => __( 'Image selector', 'storefront' ),
-			'section'  => 'seb_section',
-			'settings' => 'seb_image',
-			'priority' => 10,
-		) ) );
-
-		/**
-		 * Sample Divider.
-		 * Type can be set to 'text' or 'heading' to display a title or description.
-		 */
-		if ( class_exists( 'Arbitrary_Storefront_Control' ) ) {
-			$wp_customize->add_control( new Arbitrary_Storefront_Control( $wp_customize, 'seb_divider', array(
-				'section'  	=> 'seb_section',
-				'type'		=> 'divider',
-				'priority' 	=> 15,
-			) ) );
+		foreach ( $storefront_extension_boilerplate_customizer_fields as $f ) {
+			$sections[ $f['section'] ][] = $f;
 		}
 
-		/**
-		 * Sample Checkbox
-		 */
-		$wp_customize->add_setting( 'seb_checkbox', array(
-			'default'			=> apply_filters( 'seb_checkbox_default', false ),
-			'sanitize_callback'	=> 'absint',
-		) );
+		$this->customizer->customizer_fields( $wp_customize, $sections );
 
-		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'seb_checkbox', array(
-			'label'			=> __( 'Checkbox', 'storefront-extension-boilerplate' ),
-			'description'	=> __( 'Here\'s a simple boolean checkbox option. In this instance it toggles wrapping the main navigation in a wrapper div.', 'storefront-extension-boilerplate' ),
-			'section'		=> 'seb_section',
-			'settings'		=> 'seb_checkbox',
-			'type'			=> 'checkbox',
-			'priority'		=> 20,
-		) ) );
-
-		/**
-		 * Sample Color picker
-		 */
-		$wp_customize->add_setting( 'seb_color_picker', array(
-			'default'			=> apply_filters( 'seb_color_picker_default', '#ff0000' ),
-			'sanitize_callback'	=> 'sanitize_hex_color',
-			'transport'			=> 'postMessage', // Refreshes instantly via js. See customizer.js. (default = refresh).
-		) );
-
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'seb_color_picker', array(
-			'label'			=> __( 'Color picker', 'storefront-extension-boilerplate' ),
-			'description'	=> __( 'Here\'s an example color picker. In this instance it applies a background color to headings', 'storefront-extension-boilerplate' ),
-			'section'		=> 'seb_section',
-			'settings'		=> 'seb_color_picker',
-			'priority'		=> 30,
-		) ) );
-
-		/**
-		 * Sample Select
-		 */
-		$wp_customize->add_setting( 'seb_select', array(
-			'default' 			=> 'default',
-			'sanitize_callback'	=> 'storefront_sanitize_choices',
-		) );
-
-		$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'seb_select', array(
-			'label'			=> __( 'Select', 'storefront-extension-boilerplate' ),
-			'description'	=> __( 'Make a selection!', 'storefront-extension-boilerplate' ),
-			'section'		=> 'seb_section',
-			'settings'		=> 'seb_select',
-			'type'			=> 'select', // To add a radio control, switch this to 'radio'.
-			'priority'		=> 40,
-			'choices'		=> array(
-				'default'		=> 'Default',
-				'non-default'	=> 'Non-default',
-			),
-		) ) );
 	}
 
 	/**
@@ -152,7 +65,7 @@ final class Storefront_Extension_Boilerplate_Admin extends Storefront_Extension_
 	 * @since  1.0.0
 	 */
 	public function seb_customize_preview_js() {
-		wp_enqueue_script( 'seb-customizer', plugins_url( '/assets/js/customizer.min.js', __FILE__ ), array( 'customize-preview' ), '1.1', true );
+		wp_enqueue_script( 'seb-customizer', $this->plugin_url . '/assets/js/customizer.min.js', array( 'customize-preview' ), '1.1', true );
 	}
 
 	/**
