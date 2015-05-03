@@ -3,9 +3,9 @@ Storefront Extension Boilerplate For Lazy Developers
 
 This contains separate classes for admin and public sections, and another for  rendering customizer controls, all inheriting *Storefront_Extension_Boilerplate_Abstract* class
 
-######We have changed the way we put the controls in the customizer, just put an array with control data in **$storefront_extension_boilerplate_customizer_fields** check out includes/vars-n-funcs.php for more details.
+**We have changed the way we put the controls in the customizer, just put an array with control data in *$storefront_extension_boilerplate_customizer_fields* check out includes/vars-n-funcs.php for more details.**
 
-**Cool stuff is that *sections are automatically created too*, Just put in the label, id, section and type in field array, the sections will automatically created.**
+######*Sections are automatically created*, Just put in the label, id, section and type in field array, the sections will automatically created.
 
 #####For example, changing $storefront_extension_boilerplate_customizer_fields to
 ```php
@@ -14,24 +14,46 @@ $storefront_extension_boilerplate_customizer_fields = array(
 	array(
 		'id'        => 'search-box-placeholder',
 		'label'     => 'Search box placeholder text',
-		'section'   => 'Storefront Header products search',
+		'section'   => 'Header products search',
 		'type'      => 'text',
 	),
 	array(
 		'id'        => 'search-box-color',
 		'label'     => 'Header search color',
-		'section'   => 'Storefront Header products search',
+		'section'   => 'Header products search',
 		'type'      => 'image',
+	),
+
+	array(
+		'id'        => 'hide-branding',
+		'label'     => 'Hide site branding',
+		'section'   => 'existing_title_tagline',
+		'type'      => 'checkbox',
+	),
+
+	array(
+		'id'        => 'header-cart',
+		'label'     => 'Header Cart Display',
+		'section'   => 'Header Cart',
+		'type'      => 'select',
+		'choices'   => array(
+		    'hide'  => 'Hide',
+		    'icon'  => 'Icon Only',
+		    'full'  => 'Icon and cart',
+		)
 	),
 );
 ```
 
-#####Will create 2 fields,
-1. **search_box_placeholder** text field
-2. **search_box_color** color field
-both prefixed with **storefront-extension-boilerplate-*
+#####Will create 2 sections,
+1. **storefront-extension-boilerplate-section-header-cart** with label Header Cart.
+2. **storefront-extension-boilerplate-section-header-products-search** with label Header products search.
 
-#####and a section with label 'Storefront Header products search' and id '*storefront-extension-boilerplate-section-storefront-header-products-search*'.
+#####And 4 fields,
+1. **storefront-extension-boilerplate-search_box_placeholder** text field in '**Header products search**' section
+2. **storefront-extension-boilerplate-search_box_color** color control in '**Header products search**' section
+3. **storefront-extension-boilerplate-hide-branding** checkbox control in wordpress' default '**Site Title & Tagline**' section
+4. **storefront-extension-boilerplate-header-cart** select control in '**Header cart**' section
 
 To get the value in public class use $this->get_theme_mod( $id, $default ). e.g.
 ```php
