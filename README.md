@@ -32,8 +32,15 @@ $storefront_extension_boilerplate_customizer_fields = array(
 	),
 
 	array(
-		'id'        => 'header-cart',
-		'label'     => 'Header Cart Display',
+		'id'        => 'hide-header-cart',
+		'label'     => 'Hide header cart',
+		'section'   => 'Header Cart',
+		'type'      => 'checkbox',
+	),
+
+	array(
+		'id'        => 'header-cart-display',
+		'label'     => 'Header cart display',
 		'section'   => 'Header Cart',
 		'type'      => 'select',
 		'choices'   => array(
@@ -49,11 +56,12 @@ $storefront_extension_boilerplate_customizer_fields = array(
 1. **storefront-extension-boilerplate-section-header-cart** with label Header Cart.
 2. **storefront-extension-boilerplate-section-header-products-search** with label Header products search.
 
-#####And 4 fields,
+#####And 5 fields,
 1. **storefront-extension-boilerplate-search_box_placeholder** text field in '**Header products search**' section
 2. **storefront-extension-boilerplate-search_box_color** color control in '**Header products search**' section
-3. **storefront-extension-boilerplate-hide-branding** checkbox control in wordpress' default '**Site Title & Tagline**' section
-4. **storefront-extension-boilerplate-header-cart** select control in '**Header cart**' section
+3. **storefront-extension-boilerplate-hide-branding** checkbox control in existing '**Site Title & Tagline**' section
+4. **storefront-extension-boilerplate-header-cart-display** select control in '**Header cart**' section
+5. **storefront-extension-boilerplate-hide-header-cart** checkbox control in '**Header cart**' section
 
 To get the value in public class use $this->get_theme_mod( $id, $default ). e.g.
 ```php
