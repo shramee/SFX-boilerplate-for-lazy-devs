@@ -92,7 +92,7 @@ final class Storefront_Extension_Boilerplate_Customizer_Fields extends Storefron
 					)
 				);
 			} else {
-				$sec = str_replace( 'default_', '', $Sec );
+				$sec = str_replace( 'existing_', '', $Sec );
 			}
 
 			foreach ( $fields as $f ){
